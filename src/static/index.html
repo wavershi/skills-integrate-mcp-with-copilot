@@ -9,36 +9,75 @@
   <body>
     <header>
       <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+      <h2>Activities Portal</h2>
     </header>
 
     <main>
-      <section id="activities-container">
-        <h3>Available Activities</h3>
-        <div id="activities-list">
-          <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
+      <section id="auth-container">
+        <h3>Account Access</h3>
+        <p class="helper-text">Create an account or sign in to access protected pages.</p>
+
+        <div class="auth-grid">
+          <form id="register-form" class="card-form">
+            <h4>Register</h4>
+            <div class="form-group">
+              <label for="register-email">Email:</label>
+              <input type="email" id="register-email" required placeholder="your-email@mergington.edu" />
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password:</label>
+              <input type="password" id="register-password" required minlength="6" placeholder="At least 6 characters" />
+            </div>
+            <div class="form-group">
+              <label for="register-role">Role:</label>
+              <select id="register-role" required>
+                <option value="user" selected>User</option>
+                <option value="admin">Admin</option>
+                <option value="super_admin">Super Admin</option>
+              </select>
+            </div>
+            <button type="submit">Register</button>
+          </form>
+
+          <form id="login-form" class="card-form">
+            <h4>Login</h4>
+            <div class="form-group">
+              <label for="login-email">Email:</label>
+              <input type="email" id="login-email" required placeholder="your-email@mergington.edu" />
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password:</label>
+              <input type="password" id="login-password" required placeholder="Your password" />
+            </div>
+            <button type="submit">Login</button>
+            <p class="helper-text small">Try demo users: student@mergington.edu / student123 or admin@mergington.edu / admin123</p>
+          </form>
         </div>
       </section>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
-        <form id="signup-form">
-          <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
-          </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
-            <select id="activity" required>
-              <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
-            </select>
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <div id="message" class="hidden"></div>
+      <section id="app-container" class="hidden">
+        <div class="app-header">
+          <h3>Protected Portal</h3>
+          <button id="logout-button" type="button">Logout</button>
+        </div>
+        <p id="user-summary"></p>
+
+        <div class="app-grid">
+          <section class="nested-section">
+            <h4>Clubs Directory</h4>
+            <div id="clubs-list">
+              <p>Loading clubs...</p>
+            </div>
+          </section>
+
+          <section class="nested-section">
+            <h4>My Memberships</h4>
+            <ul id="membership-list"></ul>
+          </section>
+        </div>
       </section>
+
+      <div id="message" class="hidden"></div>
     </main>
 
     <footer>
