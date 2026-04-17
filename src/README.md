@@ -1,11 +1,15 @@
 # Mergington High School Activities API
 
-A super simple FastAPI application that allows students to view and sign up for extracurricular activities.
+FastAPI app for activities, authentication, role management, and club membership.
 
 ## Features
 
-- View all available extracurricular activities
-- Sign up for activities
+- User registration and login
+- Token-based session management
+- Role model support: user, admin, super_admin
+- Protected routes for authenticated flows
+- Clubs directory with join state
+- Membership listing for current user
 
 ## Getting Started
 
@@ -18,7 +22,7 @@ A super simple FastAPI application that allows students to view and sign up for 
 2. Run the application:
 
    ```
-   python app.py
+   uvicorn app:app --reload
    ```
 
 3. Open your browser and go to:
@@ -27,24 +31,33 @@ A super simple FastAPI application that allows students to view and sign up for 
 
 ## API Endpoints
 
-| Method | Endpoint                                                          | Description                                                         |
-| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+Authentication:
 
-## Data Model
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| POST | /auth/register | Register a new user account |
+| POST | /auth/login | Login and receive a bearer token |
+| POST | /auth/logout | Logout and invalidate current token |
+| GET | /auth/me | Get current authenticated user profile |
 
-The application uses a simple data model with meaningful identifiers:
+Clubs and memberships:
 
-1. **Activities** - Uses activity name as identifier:
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| GET | /clubs | Get club directory with Join or Joined state |
+| POST | /clubs/{club_name}/join | Join a club as current user |
+| GET | /memberships | List memberships for current user |
 
-   - Description
-   - Schedule
-   - Maximum number of participants allowed
-   - List of student emails who are signed up
+Activities (authenticated):
 
-2. **Students** - Uses email as identifier:
-   - Name
-   - Grade level
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| GET | /activities | Get all activities |
+| POST | /activities/{activity_name}/signup | Sign up current user for an activity |
+| DELETE | /activities/{activity_name}/unregister | Unregister current user from an activity |
 
-All data is stored in memory, which means data will be reset when the server restarts.
+## Notes
+
+- Send bearer tokens in Authorization header for protected routes.
+- Session token persistence in the frontend uses browser local storage.
+- All data is in-memory and resets on server restart.
